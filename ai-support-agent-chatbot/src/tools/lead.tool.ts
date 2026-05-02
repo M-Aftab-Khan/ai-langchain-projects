@@ -6,14 +6,13 @@ export const leadTool = tool(
     async({query}: {query: string}) => {
         try{
             const leads = await prisma.lead.findMany({
-                Where:{
-                    OR:[
-                        {name: {contains: query, mode: "insensitive"}},
-                        {email: {contains: query, mode: "insensitive"}},
-                    ]
+                where: {
+                    OR: [
+                        { name: { contains: query, mode: "insensitive" } },
+                        { email: { contains: query, mode: "insensitive" } },
+                    ],
                 },
-                take:5,
-            
+                take: 5,
             });
 
             if(leads.length === 0) {
