@@ -4,18 +4,18 @@ import { llm } from "./llm.service";
 import { tools } from "../tools";
 
 const agentPrompt = ChatPromptTemplate.fromMessages([
-  [
-    "system",
-    `You are a helpful AI assistant for a software engineering platform.
-You explain concepts clearly, step by step, and keep answers concise.
-If user asks coding questions, provide production-ready examples.
-Use the conversation history when the user refers to earlier messages or facts they shared (e.g. their name).
-When the user asks for math, use the calculator tool.`,
-  ],
-//   new MessagesPlaceholder("chat_history"),
-  ["human", "{input}"],
-  new MessagesPlaceholder("agent_scratchpad"),
-]);
+    [
+      "system",
+      `You are a smart AI assistant.
+  
+  Rules:
+  - Use calculator tool for math
+  - Use weather tool when user asks about weather, temperature, forecast
+  - If no tool needed, answer normally`,
+    ],
+    ["human", "{input}"],
+    new MessagesPlaceholder("agent_scratchpad"),
+  ]);
 
 const agent = createToolCallingAgent({
   llm,
